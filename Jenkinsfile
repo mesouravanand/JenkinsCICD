@@ -7,7 +7,7 @@ pipeline {
 	        MAJOR = '1'
 	        MINOR = '0'
 	        //Orchestrator Services
-	        UIPATH_ORCH_URL = "https://cloud.uipath.com/"
+	        UIPATH_ORCH_URL = "https://staging.uipath.com"
 	        UIPATH_ORCH_LOGICAL_NAME = "ps_india"
 	        UIPATH_ORCH_TENANT_NAME = "ProfServ"
 	        UIPATH_ORCH_FOLDER_NAME = "Default"
@@ -39,9 +39,8 @@ pipeline {
 	                UiPathPack (
 	                      outputPath: "Output\\${env.BUILD_NUMBER}",
 	                      projectJsonPath: "project.json",
-	                      version: [$class: 'ManualVersionEntry', version: "${MAJOR}.${MINOR}.${env.BUILD_NUMBER}"],
-	                      useOrchestrator: false,
-						  traceLevel: 'None'
+	                      version: AutoVersion(),
+			      traceLevel: 'None'
 	        )
 	            }
 	        }

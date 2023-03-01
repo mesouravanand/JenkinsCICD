@@ -7,7 +7,7 @@ pipeline {
 	        MAJOR = '1'
 	        MINOR = '0'
 	        //Orchestrator Services
-	        UIPATH_ORCH_URL = "https://staging.uipath.com/ps_india"
+	        UIPATH_ORCH_URL = "https://staging.uipath.com/ps_india/"
 	        UIPATH_ORCH_LOGICAL_NAME = "ps_india"
 	        UIPATH_ORCH_TENANT_NAME = "ProfServ"
 	        UIPATH_ORCH_FOLDER_NAME = "Rajat"
@@ -39,8 +39,9 @@ pipeline {
 	                UiPathPack (
 	                      outputPath: "Output\\${env.BUILD_NUMBER}",
 	                      projectJsonPath: "project.json",
-	                      version: AutoVersion(),
-			      traceLevel: 'None'
+	                      version: [$class: 'ManualVersionEntry', version: "${MAJOR}.${MINOR}.${env.BUILD_NUMBER}"],
+	                      useOrchestrator: false,
+						  traceLevel: 'None'
 	        )
 	            }
 	        }
@@ -56,20 +57,24 @@ pipeline {
 	        stage('Deploy to UAT') {
 	            steps {
 	                echo "Deploying ${BRANCH_NAME} to UAT "
-                        
 	                UiPathDeploy (
-                        createProcess: true,
-                        credentials: Token(accountName: 'ps_india', credentialsId: 'APIUserKey'),
-	                entryPointPaths: 'Main.xaml',
-                        environments: '',
-                        folderName: 'Rajat' ,
-	                orchestratorAddress: 'https://staging.uipath.com/ps_india',
-	                orchestratorTenant: 'ProfServ',
-                        packagePath: "Output\\${env.BUILD_NUMBER}",
-   	                traceLevel: 'Verbose'
+	                packagePath: "Output\\${env.BUILD_NUMBER}",
+	                orchestratorAddress: "${UIPATH_ORCH_URL}",
+	                orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
+	                folderName: "${UIPATH_ORCH_FOLDER_NAME}",
+	                environments: 'DEV',
+	                //credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: 'APIUserKey']
+	                credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'), 
+					traceLevel: 'None',
+					entryPointPaths: 'Main.xaml'
+	
+
 	        )
+			       
 	            }
 	        }
+			
+			
 	
 
 	

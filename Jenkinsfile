@@ -58,16 +58,14 @@ pipeline {
 	                echo "Deploying ${BRANCH_NAME} to UAT "
 	                UiPathDeploy (
                         createProcess: true,
-	                packagePath: "Output\\${env.BUILD_NUMBER}",
+                        credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'),
+	                entryPointPaths: 'Main.xaml',
+                        environments: '',
+                        folderName: "${UIPATH_ORCH_FOLDER_NAME}",
 	                orchestratorAddress: "${UIPATH_ORCH_URL}",
 	                orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
-	                folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-                        environments: '',
-                        entryPointPaths: 'Main.xaml',
-	                credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'), 
-					traceLevel: 'None'
-	
-
+                        packagePath: "Output\\${env.BUILD_NUMBER}",
+   	                traceLevel: 'Verbose'
 	        )
 	            }
 	        }

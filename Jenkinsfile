@@ -7,7 +7,7 @@ pipeline {
 	        MAJOR = '1'
 	        MINOR = '0'
 	        //Orchestrator Services
-	        UIPATH_ORCH_URL = "https://staging.uipath.com"
+	        UIPATH_ORCH_URL = "https://staging.uipath.com/ps_india"
 	        UIPATH_ORCH_LOGICAL_NAME = "ps_india"
 	        UIPATH_ORCH_TENANT_NAME = "ProfServ"
 	        UIPATH_ORCH_FOLDER_NAME = "Rajat"
@@ -62,7 +62,7 @@ pipeline {
 	                orchestratorAddress: "${UIPATH_ORCH_URL}",
 	                orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
 	                folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-                        environments: 'DEV',
+                        environments: '',
                         entryPointPaths: 'Main.xaml',
 	                credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'), 
 					traceLevel: 'None'

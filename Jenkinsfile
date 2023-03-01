@@ -56,14 +56,15 @@ pipeline {
 	        stage('Deploy to UAT') {
 	            steps {
 	                echo "Deploying ${BRANCH_NAME} to UAT "
+                        
 	                UiPathDeploy (
                         createProcess: true,
-                        credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'),
+                        credentials: Token(accountName: 'ps_india', credentialsId: 'APIUserKey'),
 	                entryPointPaths: 'Main.xaml',
                         environments: '',
-                        folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-	                orchestratorAddress: "${UIPATH_ORCH_URL}",
-	                orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
+                        folderName: 'Rajat' ,
+	                orchestratorAddress: 'https://staging.uipath.com/ps_india',
+	                orchestratorTenant: 'ProfServ',
                         packagePath: "Output\\${env.BUILD_NUMBER}",
    	                traceLevel: 'Verbose'
 	        )

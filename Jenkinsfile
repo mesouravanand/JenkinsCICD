@@ -7,10 +7,10 @@ pipeline {
 	        MAJOR = '1'
 	        MINOR = '0'
 	        //Orchestrator Services
-	        UIPATH_ORCH_URL = "https://staging.uipath.com/ps_india/"
-	        UIPATH_ORCH_LOGICAL_NAME = "ps_india"
-	        UIPATH_ORCH_TENANT_NAME = "ProfServ"
-	        UIPATH_ORCH_FOLDER_NAME = "Rajat"
+	        UIPATH_ORCH_URL = "https://cloud.uipath.com"
+	        UIPATH_ORCH_LOGICAL_NAME = "aitraining"
+	        UIPATH_ORCH_TENANT_NAME = "UiPathDefault"
+	        UIPATH_ORCH_FOLDER_NAME = "Souravtest"
 	    }
 	
 
@@ -63,8 +63,6 @@ pipeline {
 	                orchestratorAddress: "${UIPATH_ORCH_URL}",
 	                orchestratorTenant: "${UIPATH_ORCH_TENANT_NAME}",
 	                folderName: "${UIPATH_ORCH_FOLDER_NAME}",
-	                environments: 'DEV',
-	                //credentials: [$class: 'UserPassAuthenticationEntry', credentialsId: 'APIUserKey']
 	                credentials: Token(accountName: "${UIPATH_ORCH_LOGICAL_NAME}", credentialsId: 'APIUserKey'), 
 					traceLevel: 'None',
 					entryPointPaths: 'Main.xaml'
